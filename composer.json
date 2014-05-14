@@ -1,0 +1,27 @@
+{
+	"name": "pksunkara/confyio",
+	"version": "0.1.0",
+	"description": "Official Confy API library client for PHP",
+	"homepage": "https://confy.io",
+	"authors": [
+		{
+			"name": "Pavan Kumar Sunkara",
+			"email": "pavan.sss1991@gmail.com",
+			"homepage": "https://github.com/pksunkara"
+		}
+	],
+	"keywords": ["alpaca", "confyio", "confy", "assemblymade", "api", "client", "library"],
+	"autoload": {
+		"psr-0": {
+			"Confy\\": "lib/"
+		}
+	},
+	"require": {
+		"ext-json": "*",
+		"guzzle/guzzle": "3.7.*"
+	},
+	"support": {
+		"issues": "https://github.com/asm-products/confy-php/issues"
+	},
+	"license": "BSD"
+}
