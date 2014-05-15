@@ -40,6 +40,17 @@ class Client
     }
 
     /**
+     * Teams contain a list of users. The Authenticated user should be the owner of the organization.
+     *
+     * @param $org Name of the organization
+     * @param $team Name of the team
+     */
+    public function members($org, $team)
+    {
+        return new Api\Members($org, $team, $this->httpClient);
+    }
+
+    /**
      * An organization can contain any number of projects.
      *
      * @param $org Name of the organization
@@ -47,6 +58,17 @@ class Client
     public function projects($org)
     {
         return new Api\Projects($org, $this->httpClient);
+    }
+
+    /**
+     * List of teams who has access to the project. Default team __Owners__ will have access to every project. Authenticated user should be the owner of the organization for the below endpoints.
+     *
+     * @param $org Name of the organization
+     * @param $project Name of the project
+     */
+    public function access($org, $project)
+    {
+        return new Api\Access($org, $project, $this->httpClient);
     }
 
     /**
