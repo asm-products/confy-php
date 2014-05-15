@@ -18,7 +18,7 @@ class User
     }
 
     /**
-     * Get the authenticated user's info.
+     * Get the authenticated user's profile.
      *
      * '/user' GET
      */
