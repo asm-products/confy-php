@@ -1,6 +1,6 @@
 {
 	"name": "pksunkara/confyio",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Official Confy API library client for PHP",
 	"homepage": "https://confy.io",
 	"authors": [
