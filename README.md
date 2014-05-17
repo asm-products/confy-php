@@ -45,7 +45,7 @@ $config = Confy\Config::load("https://user:pass@api.confy.io/orgs/company/projec
 $config = Confy\Config::load(array(
   'host' => 'https://api.confy.io', 'user' => 'user', 'pass' => 'pass',
   'org' => 'company', 'project' => 'app', 'env' => 'production'
-});
+));
 
 // => array('port' => 6000, 'db' => array('pass' => 'sun'))
 
@@ -53,6 +53,25 @@ $config['port'] // => 6000
 $config['db']['pass'] // => 'sun'
 
 // Or you could instantiate a client to work with other api (as shown below)
+```
+
+You can also load the config directly into environment variables by doing as shown below. All the values will be stored in the key formed by concatenizing their keys with underscores.
+
+```php
+// Using URL
+Confy\Config::env("https://user:pass@api.confy.io/orgs/company/project/app/envs/production");
+
+// or using options hash
+Confy\Config::env(array(
+  'host' => 'https://api.confy.io', 'user' => 'user', 'pass' => 'pass',
+  'org' => 'company', 'project' => 'app', 'env' => 'production'
+));
+
+// ['port']
+$_ENV['PORT'] // => 6000
+
+// ['db']['pass']
+$_ENV['DB_PASS'] // => 'sun'
 ```
 
 ### Build a client
