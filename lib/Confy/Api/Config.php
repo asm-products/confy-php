@@ -44,13 +44,13 @@ class Config
     /**
      * Update the configuration document for the given environment of the project. We will patch the document recursively.
      *
-     * '/orgs/:org/projects/:project/envs/:env/config' POST
+     * '/orgs/:org/projects/:project/envs/:env/config' PATCH
      *
      * @param $body Configuration to update
      */
     public function update($body, array $options = array())
     {
-        $response = $this->client->post('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($this->env).'/config', $body, $options);
+        $response = $this->client->patch('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($this->env).'/config', $body, $options);
 
         return $response;
     }
