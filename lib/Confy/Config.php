@@ -10,6 +10,10 @@ class Config
         if (gettype($url) == 'string') {
             preg_match('/(https?:\/\/)(.*):(.*)@(.*)\/orgs\/([a-z0-9]*)\/projects\/([a-z0-9]*)\/envs\/([a-z0-9]*)\/config/i', $url, $matches);
 
+            if (count($matches) == 0) {
+                throw new Exception('Invalid url');
+            }
+
             $url = array(
                 'host' => $matches[1].$matches[4], 'user' => $matches[2], 'pass' => $matches[3],
                 'org' => $matches[5], 'project' => $matches[6], 'env' => $matches[7]
