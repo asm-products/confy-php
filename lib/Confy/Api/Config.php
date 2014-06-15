@@ -46,10 +46,13 @@ class Config
      *
      * '/orgs/:org/projects/:project/envs/:env/config' PATCH
      *
-     * @param $body Configuration to update
+     * @param $config Configuration to update
      */
-    public function update($body, array $options = array())
+    public function update($config, array $options = array())
     {
+        $body = (isset($options['body']) ? $options['body'] : array());
+        $body['config'] = $config;
+
         $response = $this->client->patch('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($this->env).'/config', $body, $options);
 
         return $response;
