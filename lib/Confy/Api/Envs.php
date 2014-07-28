@@ -68,7 +68,7 @@ class Envs
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode(env).'', $body, $options);
+        $response = $this->client->get('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($env).'', $body, $options);
 
         return $response;
     }
@@ -86,7 +86,7 @@ class Envs
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['description'] = $description;
 
-        $response = $this->client->patch('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode(env).'', $body, $options);
+        $response = $this->client->patch('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($env).'', $body, $options);
 
         return $response;
     }
@@ -102,7 +102,7 @@ class Envs
     {
         $body = (isset($options['body']) ? $options['body'] : array());
 
-        $response = $this->client->delete('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode(env).'', $body, $options);
+        $response = $this->client->delete('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($env).'', $body, $options);
 
         return $response;
     }

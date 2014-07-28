@@ -61,7 +61,7 @@ class Orgs
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/orgs/'.rawurlencode(org).'', $body, $options);
+        $response = $this->client->get('/orgs/'.rawurlencode($org).'', $body, $options);
 
         return $response;
     }
@@ -79,7 +79,7 @@ class Orgs
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['email'] = $email;
 
-        $response = $this->client->patch('/orgs/'.rawurlencode(org).'', $body, $options);
+        $response = $this->client->patch('/orgs/'.rawurlencode($org).'', $body, $options);
 
         return $response;
     }

@@ -65,7 +65,7 @@ class Projects
     {
         $body = (isset($options['query']) ? $options['query'] : array());
 
-        $response = $this->client->get('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode(project).'', $body, $options);
+        $response = $this->client->get('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($project).'', $body, $options);
 
         return $response;
     }
@@ -83,7 +83,7 @@ class Projects
         $body = (isset($options['body']) ? $options['body'] : array());
         $body['description'] = $description;
 
-        $response = $this->client->patch('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode(project).'', $body, $options);
+        $response = $this->client->patch('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($project).'', $body, $options);
 
         return $response;
     }
@@ -99,7 +99,7 @@ class Projects
     {
         $body = (isset($options['body']) ? $options['body'] : array());
 
-        $response = $this->client->delete('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode(project).'', $body, $options);
+        $response = $this->client->delete('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($project).'', $body, $options);
 
         return $response;
     }
