@@ -32,16 +32,14 @@ class User
     }
 
     /**
-     * Update the authenticated user's profile
+     * Update the authenticated user's profile. Should use basic authentication.
      *
      * '/user' PATCH
      *
-     * @param $email Profile email of the user
      */
-    public function update($email, array $options = array())
+    public function update(array $options = array())
     {
         $body = (isset($options['body']) ? $options['body'] : array());
-        $body['email'] = $email;
 
         $response = $this->client->patch('/user', $body, $options);
 

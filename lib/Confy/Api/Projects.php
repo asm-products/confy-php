@@ -22,7 +22,7 @@ class Projects
     }
 
     /**
-     * List all the projects of the organization which can be seen by the authenticated user.
+     * List all the projects of the given organization which can be accessed by the authenticated user.
      *
      * '/orgs/:org/projects' GET
      */
@@ -36,7 +36,7 @@ class Projects
     }
 
     /**
-     * Create a project for the given organization. Authenticated user should be the owner of the organization.
+     * Create a project if the authenticated user is the owner of the given organization. Only the __owners__ team will be able to see the project initially.
      *
      * '/orgs/:org/projects' POST
      *
@@ -55,7 +55,7 @@ class Projects
     }
 
     /**
-     * Get a project the user has access to.
+     * Get the given project in the given organization. Works only if the authenticated user has access to the project.
      *
      * '/orgs/:org/projects/:project' GET
      *
@@ -71,7 +71,7 @@ class Projects
     }
 
     /**
-     * Update a project. Authenticated user should be the owner of the organization.
+     * Update the given project. __Description__ is the only thing which can be updated. Authenticated user should be the owner of the organization.
      *
      * '/orgs/:org/projects/:project' PATCH
      *
@@ -89,7 +89,7 @@ class Projects
     }
 
     /**
-     * Delete the given project. Cannot delete the default project in the organization. Authenticated user should be the owner of the organization.
+     * Delete the given project. Authenticated user should be the owner of the organization.
      *
      * '/orgs/:org/projects/:project' DELETE
      *

@@ -5,7 +5,7 @@ namespace Confy\Api;
 use Confy\HttpClient\HttpClient;
 
 /**
- * Every organization will have a default team named Owners. Owner of the organization will be a default member for every team.
+ * Every organization will have a default team named __Owners__. Owner of the organization will be a default member for every team.
  *
  * @param $org Name of the organization
  */
@@ -55,7 +55,7 @@ class Teams
     }
 
     /**
-     * Get a team the user is member of.
+     * Get the given team in the given organization. Access only if the authenticated user is a member of the team.
      *
      * '/orgs/:org/teams/:team' GET
      *
@@ -71,7 +71,7 @@ class Teams
     }
 
     /**
-     * Update a team. Authenticated user should be the owner of the organization.
+     * Update the given team. __Description__ is the only thing which can be updated. Authenticated user should be the owner of the organization.
      *
      * '/orgs/:org/teams/:team' PATCH
      *

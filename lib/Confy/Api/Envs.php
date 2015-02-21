@@ -5,7 +5,7 @@ namespace Confy\Api;
 use Confy\HttpClient\HttpClient;
 
 /**
- * Every project has a default environment named Production. Each environment has one configuration document which can have many keys and values.
+ * Every project has a default environment named Production. Each environment has __one__ configuration document which can have many keys and values.
  *
  * @param $org Name of the organization
  * @param $project Name of the project
@@ -25,7 +25,7 @@ class Envs
     }
 
     /**
-     * List all the environmens of the project which can be seen by the authenticated user.
+     * List all the environmens of the project. The authenticated user should have access to the project.
      *
      * '/orgs/:org/projects/:project/envs' GET
      */
@@ -39,7 +39,7 @@ class Envs
     }
 
     /**
-     * Create an environment for the given project. Authenticated user should have access to the project.
+     * Create an environment. The authenticated user should have access to the project.
      *
      * '/orgs/:org/projects/:project/envs' POST
      *
@@ -58,7 +58,7 @@ class Envs
     }
 
     /**
-     * Get an environment of the project the user has access to.
+     * Get the given environment in the given project. The authenticated user should have access to the project.
      *
      * '/orgs/:org/projects/:project/envs/:env' GET
      *
@@ -74,7 +74,7 @@ class Envs
     }
 
     /**
-     * Update an environment. Authenticated user should have access to the project.
+     * Update the given environment. __Description__ is the only thing which can be updated. Authenticated user should have access to the project.
      *
      * '/orgs/:org/projects/:project/envs/:env' PATCH
      *
@@ -92,7 +92,7 @@ class Envs
     }
 
     /**
-     * Delete the given environment of the project. Authenticated user should have access to the project. Cannot delete the default environment.
+     * Delete the given environment. Authenticated user should have access to the project. Cannot delete the default environment.
      *
      * '/orgs/:org/projects/:project/envs/:env' DELETE
      *

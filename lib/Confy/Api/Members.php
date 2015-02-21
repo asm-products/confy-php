@@ -25,7 +25,21 @@ class Members
     }
 
     /**
-     * Add the user to the given team. The __user__ in the request needs to be a string.
+     * List all the members in the given team. Authenticated user should be a member of the team or the owner of the org.
+     *
+     * '/orgs/:org/teams/:team/member' GET
+     */
+    public function list(array $options = array())
+    {
+        $body = (isset($options['query']) ? $options['query'] : array());
+
+        $response = $this->client->get('/orgs/'.rawurlencode($this->org).'/teams/'.rawurlencode($this->team).'/member', $body, $options);
+
+        return $response;
+    }
+
+    /**
+     * Add the user to the given team. The __user__ in the request needs to be a string and be the username of a valid user.  The Authenticated user should be the owner of the organization.
      *
      * '/orgs/:org/teams/:team/member' POST
      *
@@ -42,7 +56,7 @@ class Members
     }
 
     /**
-     * Remove users from the given team. The __user__ in the request needs to be a string. Cannot delete the default member in a team.
+     * Remove users from the given team. The __user__ in the request needs to be a string and be the username of a valid user. Cannot delete the default member in a team.  The Authenticated user should be the owner of the organization.
      *
      * '/orgs/:org/teams/:team/member' DELETE
      *

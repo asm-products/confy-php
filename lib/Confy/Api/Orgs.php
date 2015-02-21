@@ -51,7 +51,7 @@ class Orgs
     }
 
     /**
-     * Get an organization the user has access to.
+     * Get the given organization if the authenticated user is a member.
      *
      * '/orgs/:org' GET
      *
@@ -67,7 +67,7 @@ class Orgs
     }
 
     /**
-     * Update an organization the user is owner of.
+     * Update the given organization if the authenticated user is the owner. __Email__ is the only thing which can be updated.
      *
      * '/orgs/:org' PATCH
      *
