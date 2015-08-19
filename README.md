@@ -13,7 +13,7 @@ Add the following to your composer.json
 ```js
 {
     "require": {
-        "pksunkara/confyio": "*"
+        "confyio/confyio": "*"
     }
 }
 ```
@@ -577,7 +577,7 @@ $response = $config->update(array(
 ```
 
 ## Contributors
-Here is a list of [Contributors](https://github.com/asm-products/confy-php/contributors)
+Here is a list of [Contributors](https://github.com/confyio/confy-php/contributors)
 
 ### TODO
 
@@ -585,7 +585,7 @@ Here is a list of [Contributors](https://github.com/asm-products/confy-php/contr
 BSD
 
 ## Bug Reports
-Report [here](https://github.com/asm-products/confy-php/issues).
+Report [here](https://github.com/confyio/confy-php/issues).
 
 ## Contact
 Pavan Kumar Sunkara (pavan.sss1991@gmail.com)

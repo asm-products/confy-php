@@ -10,7 +10,7 @@
 			"homepage": "https://github.com/pksunkara"
 		}
 	],
-	"keywords": ["alpaca", "confyio", "confy", "assemblymade", "api", "client", "library"],
+	"keywords": ["alpaca", "confyio", "confy", "api", "client", "library", "credentials"],
 	"autoload": {
 		"psr-0": {
 			"Confy\\": "lib/"
@@ -22,7 +22,7 @@
 		"guzzle/guzzle": "3.7.*"
 	},
 	"support": {
-		"issues": "https://github.com/asm-products/confy-php/issues"
+		"issues": "https://github.com/confyio/confy-php/issues"
 	},
 	"license": "BSD"
 }
