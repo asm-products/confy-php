@@ -104,4 +104,20 @@ class Teams
         return $response;
     }
 
+    /**
+     * Retrieve the list of projects the given team has access to. Authenticated user should be a member of the team.
+     *
+     * '/orgs/:org/teams/:team/projects' GET
+     *
+     * @param $team Name of the team
+     */
+    public function projects($team, array $options = array())
+    {
+        $body = (isset($options['query']) ? $options['query'] : array());
+
+        $response = $this->client->get('/orgs/'.rawurlencode($this->org).'/teams/'.rawurlencode($team).'/projects', $body, $options);
+
+        return $response;
+    }
+
 }

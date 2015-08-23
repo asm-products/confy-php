@@ -32,25 +32,6 @@ class Orgs
     }
 
     /**
-     * Create an organization with a name and the email for billing.
-     *
-     * '/orgs' POST
-     *
-     * @param $name Name of the organization
-     * @param $email Billing email of the organization
-     */
-    public function create($name, $email, array $options = array())
-    {
-        $body = (isset($options['body']) ? $options['body'] : array());
-        $body['name'] = $name;
-        $body['email'] = $email;
-
-        $response = $this->client->post('/orgs', $body, $options);
-
-        return $response;
-    }
-
-    /**
      * Get the given organization if the authenticated user is a member.
      *
      * '/orgs/:org' GET

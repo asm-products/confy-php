@@ -28,7 +28,7 @@ class Config
     }
 
     /**
-     * Get an environment config of the project.
+     * Get an environment configuration
      *
      * '/orgs/:org/projects/:project/envs/:env/config' GET
      */
@@ -54,6 +54,20 @@ class Config
         $body['config'] = $config;
 
         $response = $this->client->patch('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($this->env).'/config', $body, $options);
+
+        return $response;
+    }
+
+    /**
+     * List the last 10 versions of the environment configuration
+     *
+     * '/orgs/:org/projects/:project/envs/:env/versions' GET
+     */
+    public function versions(array $options = array())
+    {
+        $body = (isset($options['query']) ? $options['query'] : array());
+
+        $response = $this->client->get('/orgs/'.rawurlencode($this->org).'/projects/'.rawurlencode($this->project).'/envs/'.rawurlencode($this->env).'/versions', $body, $options);
 
         return $response;
     }
