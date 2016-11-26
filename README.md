@@ -47,7 +47,7 @@ require_once 'vendor/autoload.php';
 // => array('port' => 6000, 'db' => array('pass' => 'sun'))
 
 // Using URL
-Confy\Config::env("https://user:pass@api.confy.io/orgs/company/project/app/envs/production");
+Confy\Config::env('https://user:pass@api.confy.io/orgs/company/project/app/envs/production/config');
 
 // or using options hash
 Confy\Config::env(array(
@@ -64,7 +64,7 @@ $_ENV['DB_PASS'] // => 'sun'
 
 ```php
 // Retrieve the config using URL
-$config = Confy\Config::load("https://user:pass@api.confy.io/orgs/company/project/app/envs/production");
+$config = Confy\Config::load('https://user:pass@api.confy.io/orgs/company/project/app/envs/production/config');
 
 // or using options hash
 $config = Confy\Config::load(array(
