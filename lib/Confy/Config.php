@@ -9,8 +9,9 @@ class Config
     public static function load($url = array()) {
         if (gettype($url) == 'string') {
             $nameRegex = '([a-z0-9][a-z0-9-]*[a-z0-9])';
-            $pathRegex = 'orgs\\/'.$nameRegex.'\\/projects\\/'.$nameRegex.'\\/envs\\/'.$nameRegex;
-            $urlRegex = '/(https?:\\/\\/)(.*):(.*)@(.*)\\/('.$pathRegex.'|heroku)\\/config/i';
+            $tokenRegex = '([a-f0-9]{40})';
+            $pathRegex = 'orgs\\/'.$nameRegex.'(\\/projects\\/'.$nameRegex.'\\/envs\\/'.$nameRegex.'\\/config|config\\/'.$tokenRregex.')';
+            $urlRegex = '/(https?:\\/\\/)((.*):(.*)@)?(.*)\\/('.$pathRegex.'|heroku\\/config)/i';
 
             preg_match($urlRegex, $url, $matches);
 
@@ -19,8 +20,11 @@ class Config
             }
 
             $url = array(
-                'host' => $matches[1].$matches[4], 'path' => '/'.$matches[5].'/config',
-                'user' => $matches[2], 'pass' => $matches[3]
+                'host' => $matches[1].$matches[5],
+                'user' => $matches[3], 'pass' => $matches[4]
+                'org' => $matches[7], 'project' => $matches[9], 'env' => $matches[10],
+                'token' => $matches[11],
+                'heroku' => ($matches[6] == 'heroku/config')
             );
         }
 
@@ -28,9 +32,24 @@ class Config
             throw new \Exception('Invalid url');
         }
 
-        $httpClient = new HttpClient(array(
-            'username' => $url['user'], 'password' => $url['pass']
-        ), array('base' => $url['host']));
+        if ($url['user'] && $url['pass'] && $url['heroku']) {
+            $url['path'] = '/heroku/config';
+        } else if ($url['token'] && $url['org']) {
+            $url['path'] = '/orgs/'.$url['org'].'/config/'.$url['token'];
+        } else if ($url['user'] && $url['pass'] && $url['org'] && $url['project'] && $url['env']) {
+            $url['path'] = '/orgs/'.$url['org'].'/projects/'.$url['project'].'/envs/'.$url['env'];
+        } else {
+            throw new \Exception('Invalid configuration to generate URL');
+        }
+
+        $auth = array();
+
+        if ($url['user'] && $url['pass']) {
+            $auth['username'] = $url['user'];
+            $auth['password'] = $url['pass'];
+        }
+
+        $httpClient = new HttpClient($auth, array('base' => $url['host']));
 
         $body = $httpClient->get($url['path'])->body;
 

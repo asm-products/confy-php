@@ -32,10 +32,27 @@ Works with [ 5.4 / 5.5 ]
 
 ## Usage
 
-There are two ways of loading the config.
+### Before Starting
 
- * You can either load it as a hash object with the same structure into a variable.
- * Or you can load it directly into `$_ENV` with the key formed by concatenizing the path keys with underscores.
+There are two ways of pointing to the credential document. You need to choose one of them.
+
+#### User URL
+
+Using user's authentication information
+
+```js
+'https://user:pass@api.confy.io/orgs/orgname/projects/projectname/envs/envname/config'
+```
+
+#### Access Token URL
+
+Using unique access token
+
+```js
+'https://api.confy.io/orgs/orgname/config/abcdefabcdefabcdef1234567890abcdefabcdef'
+```
+
+### Initiate API Client
 
 ```php
 <?php
@@ -45,15 +62,54 @@ require_once 'vendor/autoload.php';
 
 // When the config is
 // => array('port' => 6000, 'db' => array('pass' => 'sun'))
+```
 
-// Using URL
-Confy\Config::env('https://user:pass@api.confy.io/orgs/company/project/app/envs/production/config');
+### Define Endpoint
 
-// or using options hash
-Confy\Config::env(array(
-  'host' => 'https://api.confy.io', 'user' => 'user', 'pass' => 'pass',
-  'org' => 'company', 'project' => 'app', 'env' => 'production'
-));
+You need to provide either an URL or an options objects to point the API client to the correct credential document.
+
+```php
+// User URL
+$endpoint = array(
+  'user' => 'user', // Username of the user trying to access the document
+  'pass' => 'pass', // Password of the user trying to access the document
+  'org' => 'company', // Name of the organization
+  'project' => 'app', // Name of the project
+  'env' => 'production', // Name of the stage
+);
+
+$endpoint = 'https://user:pass@api.confy.io/orgs/orgname/project/projectname/envs/envname/config';
+
+// Access Token URl
+$endpoint = array(
+  'org' => 'company', // Name of the organization
+  'token' => 'abcdefabcdefabcdef1234567890abcdefabcdef' // Access token of the document
+);
+
+$endpoint = 'https://api.confy.io/orgs/orgname/config/abcdefabcdefabcdef1234567890abcdefabcdef';
+```
+
+### Call the Server
+
+There are two ways of loading the credentials.
+
+#### Data Object
+
+You can load it as a hash object with the same structure into a variable.
+
+```php
+$config = Confy\Config::load($endpoint);
+
+$config['port'] // => 6000
+$config['db']['pass'] // => 'sun'
+```
+
+#### Environment Variables
+
+You can load it directly into `process.env` with the key formed by concatenizing the path keys with underscores.
+
+```php
+Confy\Config::env($endpoint);
 
 // ['port']
 $_ENV['PORT'] // => 6000
@@ -62,25 +118,7 @@ $_ENV['PORT'] // => 6000
 $_ENV['DB_PASS'] // => 'sun'
 ```
 
-```php
-// Retrieve the config using URL
-$config = Confy\Config::load('https://user:pass@api.confy.io/orgs/company/project/app/envs/production/config');
-
-// or using options hash
-$config = Confy\Config::load(array(
-  'host' => 'https://api.confy.io', 'user' => 'user', 'pass' => 'pass',
-  'org' => 'company', 'project' => 'app', 'env' => 'production'
-));
-
-$config['port'] // => 6000
-$config['db']['pass'] // => 'sun'
-
-// Or you could instantiate a client to work with other api (as shown below)
-```
-
 ### Build a client
-
-__Using this api without authentication gives an error__
 
 ##### Basic authentication
 
