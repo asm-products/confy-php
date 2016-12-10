@@ -28,7 +28,7 @@ $ php composer.phar update
 
 #### Versions
 
-Works with [ 5.4 / 5.5 ]
+Works with [ 5.4 / 5.5 / 5.6 ]
 
 ## Usage
 

@@ -125,13 +125,13 @@ describe('Testing match function', function ($ctx) {
   });
 
   describe('with bad url', function ($ctx) {
-    it('should return error', function ($ctx) {
+    it('should raise error', function ($ctx) {
       expect(function () { Confy\Config::match('http://api.confy.io/projects/config'); })->to->throw('\Exception', 'Invalid URL');
     });
   });
 
   describe('with empty object', function ($ctx) {
-    it('should return error', function ($ctx) {
+    it('should raise error', function ($ctx) {
       expect(function () { Confy\Config::match(array('user' => 'user', 'pass' => 'pass', 'heroku' => true)); })->to->throw('\Exception', 'Invalid URL');
     });
   });
