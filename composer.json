@@ -19,7 +19,8 @@
 	"require": {
 		"ext-json": "*",
 		"ext-mcrypt": "*",
-		"guzzle/guzzle": "3.7.*"
+		"guzzlehttp/guzzle": "3.7.*",
+		"jacobstr/matura": "^0.2.1"
 	},
 	"support": {
 		"issues": "https://github.com/confyio/confy-php/issues"

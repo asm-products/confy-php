@@ -78,7 +78,7 @@ $endpoint = array(
   'env' => 'production', // Name of the stage
 );
 
-$endpoint = 'https://user:pass@api.confy.io/orgs/orgname/project/projectname/envs/envname/config';
+$endpoint = 'https://user:pass@api.confy.io/orgs/orgname/projects/projectname/envs/envname/config';
 
 // Access Token URl
 $endpoint = array(
@@ -106,7 +106,7 @@ $config['db']['pass'] // => 'sun'
 
 #### Environment Variables
 
-You can load it directly into `process.env` with the key formed by concatenizing the path keys with underscores.
+You can load it directly into `$_ENV` with the key formed by concatenizing the path keys with underscores.
 
 ```php
 Confy\Config::env($endpoint);
@@ -117,6 +117,8 @@ $_ENV['PORT'] // => 6000
 // ['db']['pass']
 $_ENV['DB_PASS'] // => 'sun'
 ```
+
+## API Reference
 
 ### Build a client
 

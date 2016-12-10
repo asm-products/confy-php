@@ -6,41 +6,53 @@ use Confy\HttpClient\HttpClient;
 
 class Config
 {
-    public static function load($url = array()) {
+    public static function match($url) {
         if (gettype($url) == 'string') {
             $nameRegex = '([a-z0-9][a-z0-9-]*[a-z0-9])';
             $tokenRegex = '([a-f0-9]{40})';
-            $pathRegex = 'orgs\\/'.$nameRegex.'(\\/projects\\/'.$nameRegex.'\\/envs\\/'.$nameRegex.'\\/config|config\\/'.$tokenRregex.')';
+            $pathRegex = 'orgs\\/'.$nameRegex.'(\\/projects\\/'.$nameRegex.'\\/envs\\/'.$nameRegex.'\\/config|\\/config\\/'.$tokenRegex.')';
             $urlRegex = '/(https?:\\/\\/)((.*):(.*)@)?(.*)\\/('.$pathRegex.'|heroku\\/config)/i';
 
             preg_match($urlRegex, $url, $matches);
 
             if (count($matches) == 0) {
-                throw new \Exception('Invalid url');
+                throw new \Exception('Invalid URL');
             }
 
             $url = array(
                 'host' => $matches[1].$matches[5],
-                'user' => $matches[3], 'pass' => $matches[4]
-                'org' => $matches[7], 'project' => $matches[9], 'env' => $matches[10],
-                'token' => $matches[11],
+                'user' => $matches[3], 'pass' => $matches[4],
+                'org' => (count($matches) > 7 ? $matches[7] : ""),
+                'project' => (count($matches) > 7 ? $matches[9] : ""),
+                'env' => (count($matches) > 7 ? $matches[10] : ""),
+                'token' => (count($matches) == 12 ? $matches[11] : ""),
                 'heroku' => ($matches[6] == 'heroku/config')
             );
         }
 
         if (gettype($url) != 'array') {
-            throw new \Exception('Invalid url');
+            throw new \Exception('Invalid URL');
         }
 
-        if ($url['user'] && $url['pass'] && $url['heroku']) {
+        $exists = function ($value, $key) {
+            return isset($value[$key]) && !empty($value[$key]);
+        };
+
+        if ($exists($url, 'host') && $exists($url, 'user') && $exists($url, 'pass') && $exists($url, 'heroku')) {
             $url['path'] = '/heroku/config';
-        } else if ($url['token'] && $url['org']) {
+        } else if ($exists($url, 'host') && $exists($url, 'token') && $exists($url, 'org')) {
             $url['path'] = '/orgs/'.$url['org'].'/config/'.$url['token'];
-        } else if ($url['user'] && $url['pass'] && $url['org'] && $url['project'] && $url['env']) {
-            $url['path'] = '/orgs/'.$url['org'].'/projects/'.$url['project'].'/envs/'.$url['env'];
+        } else if ($exists($url, 'host') && $exists($url, 'user') && $exists($url, 'pass') && $exists($url, 'org') && $exists($url, 'project') && $exists($url, 'env')) {
+            $url['path'] = '/orgs/'.$url['org'].'/projects/'.$url['project'].'/envs/'.$url['env'].'/config';
         } else {
-            throw new \Exception('Invalid configuration to generate URL');
+            throw new \Exception('Invalid URL');
         }
+
+        return $url;
+    }
+
+    public static function load($url = array()) {
+        $url = Config::match($url);
 
         $auth = array();
 
